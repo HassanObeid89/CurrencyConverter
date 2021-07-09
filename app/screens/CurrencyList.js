@@ -11,7 +11,11 @@ export default ({navigation, route = {} }) => {
 
     const params = route.params || {}
     const { activeCurrency } = params;
-    handlePress = () => {
+
+    handlePress = (item) => {
+        if (params.onChange) {
+            params.onChange(item)
+        }
         navigation.pop();
     }
 
@@ -25,7 +29,7 @@ export default ({navigation, route = {} }) => {
                         <ListItem 
                             text={item}
                             selected={item === activeCurrency}
-                            onPress={this.handlePress}
+                            onPress={() => handlePress(item)}
                             
                         />
                     )}
