@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {useState} from 'react';
 
 import { StatusBar, KeyboardAvoidingView } from 'react-native'
 import { Container } from '../components/Container'
@@ -6,37 +6,51 @@ import { Logo } from '../components/Logo'
 import { InputWithButton } from '../components/TextInput';
 import { ClearButton } from '../components/Buttons'
 import Navigation from '../config/Navigation';
+import { onChange } from 'react-native-reanimated';
 
-const TEMP_BASE_CURRENCY = 'USD'
-const TEMP_QUOTE_CURRENCY = 'GBP'
 const TEMP_BASE_PRICE = '100'
 const TEMP_QUOTE_PRICE = '79.74'
 
 
 export default ({navigation}) => {
+
+    const [baseCurrency, setBaseCurrency] = useState('USD')
+    const [quoteCurrency, setQuoteCurrency] = useState('GBP')
+    const [value, setValue] = useState('100')
     
+    const conversionRate = 0.89824;
+    const swapCurrencies = () => {
+        setBaseCurrency(quoteCurrency)
+        setQuoteCurrency(baseCurrency)
+    }
+
         return (
             <Container>
                 <StatusBar translucent={false} barStyle='light-content' />
                 <KeyboardAvoidingView behavior='padding'>
                 <Logo />
                 <InputWithButton
-                    buttonText={TEMP_BASE_CURRENCY}
+                    buttonText={baseCurrency}
                         onPress={() => navigation.push('CurrencyList')}
                     defaultValue={TEMP_BASE_PRICE}
+                    value={value}
                     keyboardType='numeric'
-                        onChangeText={() => console.log('todo')}
+                    onChangeText={(text) => setValue(text)}
                 />
                 <InputWithButton
-                    buttonText={TEMP_QUOTE_CURRENCY}
-                        onPress={() => navigation.push('CurrencyList')}
+                    buttonText={quoteCurrency}
+                    onPress={() => 
+                        navigation.push('CurrencyList')
+                    }
                     editable={false}
-                    value={TEMP_QUOTE_PRICE}
+                    value={
+                        value && `${(parseFloat(value) * conversionRate).toFixed(2)}`
+                    }
                 />
                 </KeyboardAvoidingView>
                 <ClearButton
                     text='Reverse Currencies'
-                    onPress={() => console.log('todo')}
+                    onPress={() => swapCurrencies()}
                 />
             </Container>
         )

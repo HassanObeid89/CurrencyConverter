@@ -1,17 +1,18 @@
 import React, { Component } from 'react'
-import { FlatList, View, StatusBar, StyleSheet } from 'react-native';
+import { FlatList, View, StatusBar } from 'react-native';
 
 import {ListItem, Separator} from '../components/List'
+import Navigation from '../config/Navigation';
 import currencies from '../data/currencies';
 
 const TEMP_CURRENT_CURRENCY = 'CAD'
 
-class CurrencyList extends Component {
+export default ({navigation}) => {
     handlePress = () => {
-        console.log('row pressed')
+        navigation.pop();
     }
 
-    render() {
+    
         return (
             <View style={{ flex: 1 }}>
                 <StatusBar barStyle='default' translucent={false} />
@@ -21,7 +22,7 @@ class CurrencyList extends Component {
                         <ListItem 
                             text={item}
                             selected={item === TEMP_CURRENT_CURRENCY}
-                            onPress={()=>console.log('row pressed')}
+                            onPress={this.handlePress}
                             
                         />
                     )}
@@ -34,6 +35,4 @@ class CurrencyList extends Component {
 
         )
     }
-}
 
-export default CurrencyList;
