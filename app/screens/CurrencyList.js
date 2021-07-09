@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { FlatList, View, StatusBar } from 'react-native';
+import { FlatList, View, StatusBar, StyleSheet } from 'react-native';
 
 import {ListItem, Separator} from '../components/List'
 import currencies from '../data/currencies';
@@ -21,7 +21,7 @@ class CurrencyList extends Component {
                         <ListItem 
                             text={item}
                             selected={item === TEMP_CURRENT_CURRENCY}
-                            onPress={this.handlePress}
+                            onPress={()=>console.log('row pressed')}
                             
                         />
                     )}
