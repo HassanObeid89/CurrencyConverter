@@ -5,9 +5,12 @@ import {ListItem, Separator} from '../components/List'
 import Navigation from '../config/Navigation';
 import currencies from '../data/currencies';
 
-const TEMP_CURRENT_CURRENCY = 'CAD'
+//const TEMP_CURRENT_CURRENCY = 'USD'
 
-export default ({navigation}) => {
+export default ({navigation, route = {} }) => {
+
+    const params = route.params || {}
+    const { activeCurrency } = params;
     handlePress = () => {
         navigation.pop();
     }
@@ -21,7 +24,7 @@ export default ({navigation}) => {
                     renderItem={({ item }) => (
                         <ListItem 
                             text={item}
-                            selected={item === TEMP_CURRENT_CURRENCY}
+                            selected={item === activeCurrency}
                             onPress={this.handlePress}
                             
                         />
