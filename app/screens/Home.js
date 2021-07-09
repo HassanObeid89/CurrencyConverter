@@ -1,26 +1,53 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 
-import { StatusBar, KeyboardAvoidingView } from 'react-native'
-import { Container } from '../components/Container'
+import { StatusBar, KeyboardAvoidingView, Alert, ActivityIndicator } from 'react-native'
+import { Container, styles } from '../components/Container'
 import { Logo } from '../components/Logo'
 import { InputWithButton } from '../components/TextInput';
 import { ClearButton } from '../components/Buttons'
-import Navigation from '../config/Navigation';
-import { onChange } from 'react-native-reanimated';
+import { api } from '../util/Api'
 
-const TEMP_BASE_PRICE = '100'
-const TEMP_QUOTE_PRICE = '79.74'
+const TEMP_BASE_PRICE = '100';
+
 
 
 export default ({navigation}) => {
 
-    const [baseCurrency, setBaseCurrency] = useState('USD')
+    const [baseCurrency, _setBaseCurrency] = useState('USD')
     const [quoteCurrency, setQuoteCurrency] = useState('GBP')
     const [value, setValue] = useState('100')
+    const [rates, setRates] = useState({})
+    const [isLoading, setIsLoading] = useState(true)
+
     
-    const conversionRate = 0.89824;
+    
+
+    useEffect(() => {
+        const setBaseCurrency = async (currency) => {
+            setIsLoading(true)
+
+            const rates = await api(`/latest?base=${currency}`)
+                .then((res) => {
+                    console.log(res);
+                    _setBaseCurrency(currency);
+                    setRates(res.rates);
+                })
+                .catch((err) => {
+                    Alert.alert('Sorry, something went wrong')
+
+                })
+                .finally(() => {
+                    setIsLoading(false)
+                })
+        }
+        setBaseCurrency('USD');
+        
+    },[])
+
+    const conversionRate = rates[quoteCurrency];
+
     const swapCurrencies = () => {
-        setBaseCurrency(quoteCurrency)
+        _setBaseCurrency(quoteCurrency)
         setQuoteCurrency(baseCurrency)
     }
 
@@ -29,11 +56,15 @@ export default ({navigation}) => {
                 <StatusBar translucent={false} barStyle='light-content' />
                 <KeyboardAvoidingView behavior='padding'>
                 <Logo />
-                <InputWithButton
+                {isLoading ? (
+                        <ActivityIndicator color={'#ffff'} size="large" />
+                ):(
+                    <>
+                    <InputWithButton
                     buttonText={baseCurrency}
                     onPress={() => navigation.push('CurrencyList', {
                         activeCurrency: baseCurrency,
-                        onChange: (currency) => setBaseCurrency(currency)
+                        onChange: (currency) => _setBaseCurrency(currency)
                     })}
                     defaultValue={TEMP_BASE_PRICE}
                     value={value}
@@ -52,11 +83,15 @@ export default ({navigation}) => {
                         value && `${(parseFloat(value) * conversionRate).toFixed(2)}`
                     }
                 />
-                </KeyboardAvoidingView>
+                
                 <ClearButton
                     text='Reverse Currencies'
                     onPress={() => swapCurrencies()}
                 />
+                </>
+                )}
+                            
+                </KeyboardAvoidingView>
             </Container>
         )
     }
