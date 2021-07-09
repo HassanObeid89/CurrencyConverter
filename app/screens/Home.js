@@ -31,7 +31,10 @@ export default ({navigation}) => {
                 <Logo />
                 <InputWithButton
                     buttonText={baseCurrency}
-                    onPress={() => navigation.push('CurrencyList', {activeCurrency: baseCurrency})}
+                    onPress={() => navigation.push('CurrencyList', {
+                        activeCurrency: baseCurrency,
+                        onChange: (currency) => setBaseCurrency(currency)
+                    })}
                     defaultValue={TEMP_BASE_PRICE}
                     value={value}
                     keyboardType='numeric'
@@ -40,7 +43,9 @@ export default ({navigation}) => {
                 <InputWithButton
                     buttonText={quoteCurrency}
                     onPress={() => 
-                        navigation.push('CurrencyList', { activeCurrency: quoteCurrency })
+                        navigation.push('CurrencyList', {
+                            activeCurrency: quoteCurrency,
+                            onChange: (currency) => setQuoteCurrency(currency) })
                     }
                     editable={false}
                     value={
