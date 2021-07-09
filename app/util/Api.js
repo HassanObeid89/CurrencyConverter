@@ -56,6 +56,6 @@ export const api = (fullPath = '') => {
                     [baseCurrency]: 1,
                 },
             });
-        }, 500);
+        }, 2500);
     });
 };
