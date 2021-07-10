@@ -5,7 +5,7 @@ import { Container, styles } from '../components/Container'
 import { Logo } from '../components/Logo'
 import { InputWithButton } from '../components/TextInput';
 import { ClearButton } from '../components/Buttons'
-import { api } from '../util/Api'
+
 
 const TEMP_BASE_PRICE = '100';
 
@@ -16,35 +16,21 @@ export default ({navigation}) => {
     const [baseCurrency, _setBaseCurrency] = useState('USD')
     const [quoteCurrency, setQuoteCurrency] = useState('GBP')
     const [value, setValue] = useState('100')
-    const [rates, setRates] = useState({})
     const [isLoading, setIsLoading] = useState(true)
+    const [data, setData] = useState({})
 
-    
-    
+    const ratesURL = 'http://data.fixer.io/api/latest?access_key=9e85423609403b3aa798e32ddf0c507e'
 
     useEffect(() => {
-        const setBaseCurrency = async (currency) => {
-            setIsLoading(true)
-
-            const rates = await api(`/latest?base=${currency}`)
-                .then((res) => {
-                    console.log(res);
-                    _setBaseCurrency(currency);
-                    setRates(res.rates);
-                })
-                .catch((err) => {
-                    Alert.alert('Sorry, something went wrong')
-
-                })
-                .finally(() => {
-                    setIsLoading(false)
-                })
-        }
-        setBaseCurrency('USD');
-        
+        setTimeout (() => {
+            fetch(ratesURL).then((res) => res.json())
+        .then((json) => setData(json.rates))
+        .catch((err) => alert(err))
+        .finally(setIsLoading(false))
+        }, 2500)
     },[])
-
-    const conversionRate = rates[quoteCurrency];
+  
+    const conversionRate = data[quoteCurrency];
 
     const swapCurrencies = () => {
         _setBaseCurrency(quoteCurrency)

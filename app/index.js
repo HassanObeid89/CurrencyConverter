@@ -1,9 +1,7 @@
 import React from 'react'
 import EStyleSheet from 'react-native-extended-stylesheet'
-import CurrencyList from './screens/CurrencyList'
-import Home from './screens/Home'
 import Navigation from './config/Navigation'
-import { api } from './util/Api';
+
 
 
 EStyleSheet.build({
@@ -15,9 +13,5 @@ EStyleSheet.build({
     $darkText: '#343434',
 })
 
-
-api('/latest?base=USD')
-    .then((res) => console.log(res))
-    .catch((err) => console.log('err', err));
 
 export default () => <Navigation />
