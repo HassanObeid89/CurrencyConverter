@@ -19,14 +19,14 @@ export default ({navigation}) => {
     const [isLoading, setIsLoading] = useState(true)
     const [data, setData] = useState({})
 
-    const ratesURL = 'http://data.fixer.io/api/latest?access_key=9e85423609403b3aa798e32ddf0c507e'
+    const ratesURL = 'http://127.0.0.1:5000/api/rates'
 
     useEffect(() => {
         setTimeout (() => {
             fetch(ratesURL).then((res) => res.json())
-        .then((json) => setData(json.rates))
+        .then((json) => setData(json.result.rates))
         .catch((err) => alert(err))
-        .finally(setIsLoading(false))
+        .finally(() => setIsLoading(false))
         }, 2500)
     },[])
   
