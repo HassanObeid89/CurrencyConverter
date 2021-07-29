@@ -32,11 +32,8 @@ namespace CurrencyConverter.API
                 options.AddPolicy(MyAllowSpecificOrigins,
                     builder =>
                     {
-                        builder.WithOrigins("http://127.0.0.1:19006",
-                            "http://localhost:19006",
-                            "http://192.168.1.207:19000",
-                            "http://127.0.0.1:19000",
-                            "http://192.168.99.235:19000");
+                        builder.AllowAnyOrigin();
+                       
                     });
             });
           
