@@ -1,19 +1,21 @@
-﻿<Properties StartupConfiguration="{38B89469-3598-4DBA-80AC-2BFDA7E2C20A}|Default" NuGet.AddPackagesDialog.IncludePrerelease="True">
-  <MonoDevelop.Ide.Workbench>
+﻿<Properties StartupConfiguration="{E859D9AB-409F-4ED7-9B32-47B47FCED3FF}|Default" NuGet.AddPackagesDialog.IncludePrerelease="True">
+  <MonoDevelop.Ide.Workbench ActiveDocument="CurrencyConverter.API/Startup.cs">
+    <Files>
+      <File FileName="CurrencyConverter.API/Startup.cs" Line="36" Column="2" />
+      <File FileName="CurrencyConverter.API/Controller/CurrenciesController.cs" Line="1" Column="1" />
+      <File FileName="CurrencyConverter.API/Model/Rates.cs" Line="1" Column="1" />
+    </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="CurrencyConverter.API" expanded="True">
             <Node name="CurrencyConverter.API" expanded="True">
-              <Node name="Dependencies" expanded="True">
-                <Node name="FrameworkReferences" expanded="True" />
-                <Node name="PackageDependencies" expanded="True" />
-              </Node>
               <Node name="Controller" expanded="True" />
               <Node name="Model" expanded="True" />
               <Node name="appsettings.json" expanded="True" />
               <Node name="Startup.cs" selected="True" />
             </Node>
+            <Node name="docker-compose" expanded="True" />
           </Node>
         </State>
       </Pad>
@@ -22,6 +24,7 @@
   <MonoDevelop.Ide.ItemProperties.CurrencyConverter.API PreferredExecutionTarget="/Applications/Google Chrome.app" />
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.docker-compose PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

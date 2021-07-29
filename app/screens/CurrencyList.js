@@ -12,7 +12,7 @@ export default ({navigation, route = {} }) => {
     const params = route.params || {}
     const { activeCurrency } = params;
 
-    handlePress = (item) => {
+    const handlePress = (item) => {
         if (params.onChange) {
             params.onChange(item)
         }
@@ -30,7 +30,7 @@ export default ({navigation, route = {} }) => {
                             text={item}
                             selected={item === activeCurrency}
                             onPress={() => handlePress(item)}
-                            
+                            // onClick={() => handlePress(item)}
                         />
                     )}
                     ItemSeparatorComponent={Separator}
